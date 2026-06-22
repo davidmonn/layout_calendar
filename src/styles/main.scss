@@ -6,12 +6,18 @@
 .calendar__container {
   display: flex;
   gap: $distance-box;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   justify-content: center;
+
+    &:last-child {
+      justify-content: flex-start;
+    }
+
 }
 
 .calendar__day {
   display: flex;
+
   justify-content: center;
   align-items: center;
 
@@ -23,11 +29,10 @@
   border: 1px solid black;
 
   cursor: pointer;
-  transition-duration: 0.5s;
-  transition-timing-function: linear;
+  transition: 0.5s linear;
 
   &:hover {
-    transform: translateY(-20px);
+    transform: translateY($moveY-hover);
     background-color: $color-box-hover;
   }
 }
@@ -36,6 +41,8 @@
 @for $numbers from 1 through 31 {
   .calendar__day:nth-child(#{$numbers})::before {
     content: '#{$numbers}';
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: $font-size-default;
   }
 }
 
@@ -55,7 +62,7 @@ $daysWeek: (
 @each $dayWeek, $weekValue in $daysWeek {
   .calendar--#{$dayWeek} {
     .calendar__day:first-child {
-      margin-left: ($value-default + $distance-box) * ($weekValue * 6);
+      margin-left: ($value-default + $distance-box + 2) * ($weekValue * 6);
     }
   }
 }
